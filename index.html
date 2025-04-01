@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+    <style>
+        /* Style corrigé pour le loader */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #078c2d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Alternative si le GIF ne charge pas */
+        .fallback-text {
+            color: #333;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+<!-- Loader amélioré avec fallback -->
+<div id="loading">
+    <div>
+        
+        
+        <!-- Solution 2: Spinner CSS (fallback) -->
+        <div class="loading-spinner" ></div>
+        
+        <!-- Solution 3: Texte (double fallback) -->
+        <div class="fallback-text">Loading ,it takes 6s ...</div>
+    </div>
+</div>
+
+
+<div class="container mt-5" id="main-content" style="display: none;">
+    <h1 class="text-center mb-4"> Welcome to our store !! </h1>
+    
+    <!-- Barre de filtrage (verticale) -->
+    <div class="row mb-4  ">
+        <div class="col-md-3 ">
+            <form id="filter-form">
+                <h5 class="fw-bold">Filter by category</h5>
+                <select class="form-select mb-3 rounded-4" id="filter-category">
+                    <option value="">All the categories </option>
+                </select>
+        
+                <h5 class="mt-5">Filter by brand</h5>
+                <select class="form-select mb-3 rounded-4" id="filter-brand">
+                    <option value="">All the brands</option>
+                </select>
+        
+                <h5 class="mt-5">Filter by price</h5>
+                <input type="range" class="form-range rounded-4" id="filter-price" min="0" max="1000" step="1" value="1000">
+                <label for="filter-price" id="price-range-label">Max price: 1000</label>
+            </form>
+        </div>
+        
+
+        <!-- Zone des produits -->
+        <div class="col-md-9">
+            <div id="info-container"></div> <!-- Afficher l'info de total de produits -->
+            <div id="produits-container" class="row"></div> <!-- Conteneur pour afficher les produits -->
+            <div id="pagination-container" class="text-center mt-4"></div> <!-- Conteneur pour pagination -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour afficher les détails du produit -->
+<div class="modal fade " id="produitModal" tabindex="-1" aria-labelledby="produitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title" id="produitModalLabel">Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="produit-details" class="card rounded-4">
+                    <img id="produit-image" class="card-img-top " src="" alt="Produit Image">
+                    <div class="card-body">
+                        <h5 id="produit-title" class="card-title"></h5>
+                        <p><strong><span id="produit-rating"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="produit-sku"></span> </strong></p>
+                        <p id="produit-category" class="card-text"></p>
+                        <p id="produit-price" class="card-text"></p>
+                        <p id="produit-discount"></p>
+                        <p id="produit-brand" class="card-text"></p>
+                        <p id="produit-availability"></p>
+                        <p id="produit-returnPolicy" ></p>
+                        <p id="sku"></p>
+                        <p id="reviews"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Reviews -->
+<div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="reviewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewsModalLabel">Reviews</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="produit-reviews" class="list-group"></ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js" defer></script>
+<footer class="bg-dark text-white text-center py-3 mt-4">
+    <p class="mb-0">Created by  Assif Omaima</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
